@@ -3,77 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demo Collection</title>
+    <title>CyberGuardians - [Page Name]</title>
     <link rel="stylesheet" href="css/main.css">
     <script src="js/main.js" defer></script>
 </head>
 <body>
-    <header>
-        <h1>CyberGuardians Demos</h1>
-        <p class="subtitle">Demonstrations to support learning about cybersecurity</p>
+    <!-- Site-level header with logo and navigation -->
+    <header class="site-header">
+        <div class="site-header-content">
+            <a href="home.html" class="logo">
+                <img src="logo.png" alt="CyberGuardians Logo">
+            </a>
+            <nav class="main-nav">
+                <a href="home.html">Home</a>
+                <a href="index.html" class="active">Demonstrations</a>
+                <a href="links.html">Useful Links</a>
+                <a href="learn.html">Tips</a>
+            </nav>
+        </div>
     </header>
 
-    <main class="demo-grid">
-        <!-- Demo cards will be added here -->
-        <!-- Example structure:
-        <div class="demo-card">
-            <a href="demos/demo-name/index.html" class="demo-card-link">
-                <div class="demo-card-content">
-                    <h2>Demo Title</h2>
-                    <p>Brief description of what this demo demonstrates.</p>
-                    <div class="demo-tags">
-                        <span class="tag">HTML</span>
-                        <span class="tag">CSS</span>
-                        <span class="tag">JavaScript</span>
-                    </div>
-                </div>
-            </a>
-            <div class="demo-actions">
-                <a href="demos/demo-name/index.html" class="run-btn" title="Run this demo">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                    </svg>
-                    Run
-                </a>
-                <button class="download-btn" onclick="downloadDemo('demo-name')" title="Download this demo">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                        <polyline points="7 10 12 15 17 10"></polyline>
-                        <line x1="12" y1="15" x2="12" y2="3"></line>
-                    </svg>
-                    Download
-                </button>
-            </div>
-        </div>
-        -->
+    <!-- Page-specific header -->
+    <div class="page-header">
+        <h1>Demonstrations</h1>
+        <p class="page-description">Interactive learning and teaching resources</p>
+    </div>
 
-        <div class="demo-card">
-            <a href="demos/bruteforce/index.html" class="demo-card-link">
-                <div class="demo-card-content">
-                    <h2>Brute Force Password Cracking</h2>
-                    <p>Learn the most basic approach to cracking passwords and see how long it takes</p>
-                    <div class="demo-tags">
-                        <span class="tag">Passwords</span>
+    <main>
+        <div class="demo-grid">
+            <div class="demo-card">
+                <a href="demos/bruteforce/index.html" class="demo-card-link">
+                    <div class="demo-card-content">
+                        <h2>Brute Force Password Cracking</h2>
+                        <p>Visualise how hackers use powerful computers to systematically try passwords</p>
+                        <p>[Note: demonstration needs revision]</p>
+                        <div class="demo-tags">
+                            <span class="tag">Passwords</span>
+                        </div>
                     </div>
-                </div>
-            </a>
-            <div class="demo-actions">
-                <a href="demos/bruteforce/index.html" class="run-btn" title="Run this demo">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                    </svg>
-                    Run
                 </a>
-                <button class="download-btn" onclick="downloadDemo('bruteforce')" title="Download this demo">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                        <polyline points="7 10 12 15 17 10"></polyline>
-                        <line x1="12" y1="15" x2="12" y2="3"></line>
-                    </svg>
-                    Download
-                </button>
+                <div class="demo-actions">
+                    <a href="demos/bruteforce/index.html" class="run-btn" title="Run this demo">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        Run
+                    </a>
+                    <button class="download-btn" onclick="downloadDemo('bruteforce')" title="Download this demo">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Download
+                    </button>
+                </div>
             </div>
-        </div>
     </main>
 </body>
 </html>
