@@ -1,0 +1,14 @@
+<!-- Site-level header with logo and navigation -->
+<header class="site-header">
+    <div class="site-header-content">
+        <a href="home.html" class="logo">
+            <img src="logo.png" alt="CyberGuardians Logo">
+        </a>
+        <nav class="main-nav">
+            <a href="home.html" {% if page.active_page == 'home' %}class="active"{% endif %}>Home</a>
+            <a href="index.html" {% if page.active_page == 'demonstrations' %}class="active"{% endif %}>Demonstrations</a>
+            <a href="links.html" {% if page.active_page == 'links' %}class="active"{% endif %}>Useful Links</a>
+            <a href="learn.html" {% if page.active_page == 'learn' %}class="active"{% endif %}>Tips</a>
+        </nav>
+    </div>
+</header>

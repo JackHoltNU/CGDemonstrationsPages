@@ -1,0 +1,11 @@
+# Site settings
+title: CyberGuardians
+description: Cybersecurity education resources
+
+# Build settings
+markdown: kramdown
+
+# Include/exclude files
+include:
+  - _includes
+  - _layouts
