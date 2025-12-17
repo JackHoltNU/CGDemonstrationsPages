@@ -1,45 +1,44 @@
 ---
 layout: default
-title: Demonstrations
-active_page: demonstrations
-include_js: true
+title: Home
+active_page: home
 ---
 
 <!-- Page-specific header -->
-    <div class="page-header">
-        <h1>Demonstrations</h1>
-        <p class="page-description">Interactive learning and teaching resources</p>
+<div class="page-header">
+    <h1>CyberGuardians Resources</h1>
+    <!-- <p class="page-description"></p> -->
+</div>
+
+<main>
+    <div class="content-section">
+        <!-- <h2></h2> -->
+        <div class="feature-grid">
+            <a href="{{ '/demonstrations.html' | relative_url }}" class="feature-card">
+                <div class="feature-card-content">
+                    <h3>Demonstrations</h3>
+                    <p>Interactive resources for showing how things work</p>
+                </div>
+                <span class="feature-button">Go to Demonstrations</span>
+            </a>
+
+            <a href="{{ '/links.html' | relative_url }}" class="feature-card">
+                <div class="feature-card-content">
+                    <h3>Useful Links</h3>
+                    <p>Helpful sources for learning more</p>
+                </div>
+                <span class="feature-button">Go to Useful Links</span>
+            </a>
+
+            <a href="{{ '/learn.html' | relative_url }}" class="feature-card">
+                <div class="feature-card-content">
+                    <h3>Tips</h3>
+                    <p>Tips and good practices for staying safe and well informed</p>
+                </div>
+                <span class="feature-button">Go to Tips</span>
+            </a>
+        </div>
     </div>
 
-    <main>
-        <div class="demo-grid">
-            <div class="demo-card">
-                <a href="demos/bruteforce/index.html" class="demo-card-link">
-                    <div class="demo-card-content">
-                        <h2>Brute Force Password Cracking</h2>
-                        <p>Visualise how hackers use powerful computers to systematically try passwords</p>
-                        <p>[Note: demonstration needs revision]</p>
-                        <div class="demo-tags">
-                            <span class="tag">Passwords</span>
-                        </div>
-                    </div>
-                </a>
-                <div class="demo-actions">
-                    <a href="demos/bruteforce/index.html" class="run-btn" title="Run this demo">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                        </svg>
-                        Run
-                    </a>
-                    <button class="download-btn" onclick="downloadDemo('bruteforce')" title="Download this demo">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="7 10 12 15 17 10"></polyline>
-                            <line x1="12" y1="15" x2="12" y2="3"></line>
-                        </svg>
-                        Download
-                    </button>
-                </div>
-            </div>
-        </div>
-    </main>
+    <!-- Add more content-section divs as needed -->
+</main>
