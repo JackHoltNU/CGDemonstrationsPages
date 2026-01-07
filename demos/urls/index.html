@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Hierarchy Visualizer</title>
+---
+layout: default
+title: URL Hierarchy Visualizer
+---
+
     <style>
         * {
             margin: 0;
@@ -12,13 +11,13 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-            padding: 40px 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;            
             background: #f5f5f5;
             min-height: 100vh;
         }
         
         .container {
+            padding: 30px;
             max-width: 800px;
             margin: 0 auto;
         }
@@ -286,13 +285,11 @@
             color: #333;
         }
     </style>
-</head>
-<body>
     <div class="container">
         <h1>URL Hierarchy Visualizer</h1>
         <p class="intro">
             Learn how website addresses (URLs) work to protect yourself from fake websites and scams. 
-            The most important thing is knowing who actually owns the website you're visiting.
+            The most important thing is knowing the main <strong>domain name</strong> of the website you are visiting. 
         </p>
         
         <div class="input-section">
@@ -301,14 +298,13 @@
                 <button onclick="visualize()">Visualize</button>
             </div>
             <div class="examples">
-                Try: 
+                Try:
                 <span onclick="setExample('docs.google.com')">docs.google.com</span>
-                <span onclick="setExample('mail.google.com')">mail.google.com</span>
-                <span onclick="setExample('google.com/docs')">google.com/docs</span>
+                <span onclick="setExample('https://www.google.com')">https://www.google.com</span>
+                <span onclick="setExample('http://example.com')">http://example.com</span>
                 <span onclick="setExample('google.fakesite.com')">google.fakesite.com</span>
                 <span onclick="setExample('paypal.secure-login.com/account')">paypal.secure-login.com/account</span>
                 <span onclick="setExample('goog1e.com')">goog1e.com</span>
-                <span onclick="setExample('paypa1.com')">paypa1.com</span>
             </div>
         </div>
         
@@ -390,29 +386,46 @@
                 setTimeout(visualize, 500);
                 return;
             }
-            
+
             const input = document.getElementById('urlInput').value.trim().toLowerCase();
             if (!input) return;
-            
+
+            // Extract protocol
+            let protocol = '';
+            let cleanInput = input;
+            if (input.startsWith('https://')) {
+                protocol = 'https';
+                cleanInput = input.substring(8);
+            } else if (input.startsWith('http://')) {
+                protocol = 'http';
+                cleanInput = input.substring(7);
+            }
+
             // Clean up input but preserve path
-            let url = input.replace(/^https?:\/\//, '');
+            let url = cleanInput;
             let path = '';
             const pathIndex = url.indexOf('/');
             if (pathIndex !== -1) {
                 path = url.substring(pathIndex);
                 url = url.substring(0, pathIndex);
             }
-            
+
             const parts = url.split('.');
             if (parts.length < 2) {
                 alert('Please enter a valid domain with at least two parts (e.g., example.com)');
                 return;
             }
-            
+
             const suffixLength = findSuffix(parts);
             const domainParts = parts.slice(-(suffixLength + 1));
-            const subdomainParts = parts.slice(0, -(suffixLength + 1));
-            
+            let subdomainParts = parts.slice(0, -(suffixLength + 1));
+
+            // Check if www is present and remove it from subdomain parts
+            const hasWww = subdomainParts.length > 0 && subdomainParts[0] === 'www';
+            if (hasWww) {
+                subdomainParts = subdomainParts.slice(1);
+            }
+
             const domain = domainParts.join('.');
             const hasSubdomains = subdomainParts.length > 0;
             const hasPath = path.length > 0;
@@ -503,37 +516,59 @@
             }
             
             // Generate explanation
-            generateExplanation(url + path, domain, subdomainParts, path);
-            
+            generateExplanation(url + path, domain, subdomainParts, path, protocol, hasWww);
+
             // Generate URL breakdown
-            generateUrlBreakdown(domain, subdomainParts, path);
-            
+            generateUrlBreakdown(domain, subdomainParts, path, hasWww);
+
             document.getElementById('visualization').classList.add('active');
         }
 
-        function generateExplanation(fullUrl, domain, subdomains, path) {
+        function generateExplanation(fullUrl, domain, subdomains, path, protocol, hasWww) {
             const container = document.getElementById('explanation');
-            
+
             const isLegit = domain.includes('google') || domain.includes('paypal') || domain.includes('microsoft');
             const hasSubdomains = subdomains.length > 0;
             const hasPath = path && path.length > 0;
-            
+
             // Check for character substitution tricks - only flag actual suspicious domains
             const suspiciousDomains = ['goog1e', 'googl3', 'g00gle', 'paypa1', 'paypa!', 'micr0s0ft', 'app1e', 'amaz0n'];
             const hasTrickChars = suspiciousDomains.some(sus => domain.includes(sus));
-            
-            let html = '<div class="explanation">';
+
+            let html = '';
+
+            // Protocol explanation (if provided)
+            if (protocol === 'https') {
+                html += '<div class="explanation" style="background: #E8F8F5; border-left-color: #27AE60;">';
+                html += '<h3 style="color: #27AE60;">🔒 Secure Connection (HTTPS)</h3>';
+                html += '<p>This website uses HTTPS, which means the connection is encrypted. Any data you send to or receive from this website cannot be read if intercepted by someone else.</p>';
+                html += '</div>';
+            } else if (protocol === 'http') {
+                html += '<div class="explanation warning">';
+                html += '<h3>⚠️ Unencrypted Connection (HTTP)</h3>';
+                html += '<p>This website uses HTTP, which is NOT encrypted. This is potentially dangerous because anyone intercepting your connection can read everything you send or receive, including passwords and personal information.</p>';
+                html += '</div>';
+            }
+
+            html += '<div class="explanation">';
             html += '<h3>What this means:</h3>';
-            html += `<p><strong>${domain}</strong> is the main domain. This tells you who owns and controls the website. Everything else is just part of their website.</p>`;
-            
+            html += `<p><strong>${domain}</strong> is the main domain. This tells you who owns and controls the website. Everything else is just part of their website. `;
+            html += `Domain names usually have an ending like .com, .co.uk, .org and so on. They'll be at the right of the URL, before any slash (/).</p>`;
+
             if (hasSubdomains) {
-                html += `<p>The part "<strong>${subdomains.join('.')}</strong>" is called a subdomain. It's just a section within ${domain}'s website. The owner of ${domain} controls all their subdomains.</p>`;
+                html += `<p>The part "<strong>${subdomains.join('.')}</strong>" is called a subdomain. It's just a section within ${domain}'s website. The owner of ${domain} controls all their subdomains. `;
+                html += `Subdomains are always to the left of the main domain. For URLs that have multiple parts separated by full stops (.), like this one, start reading these on the right.</p>`;
             }
-            
+
             if (hasPath) {
-                html += `<p>The part "<strong>${path}</strong>" is called a path. It's just the address of a specific page on the website, like a folder name on your computer.</p>`;
+                html += `<p>The part "<strong>${path}</strong>" is called a path. It's just the address of a specific page on the website, like a folder name on your computer. `;
+                html += `Anything after a slash (/) is a path, not the domain.</p>`;
             }
-            
+
+            if (hasWww) {
+                html += `<p><strong>About "www":</strong> The "www" at the beginning stands for "World Wide Web" and isn't really necessary anymore. Most modern websites work with or without it (e.g., www.google.com and google.com go to the same place).</p>`;
+            }
+
             html += '</div>';
             
             // Add warning for phishing examples with subdomains
@@ -569,12 +604,18 @@
             container.innerHTML = html;
         }
         
-        function generateUrlBreakdown(domain, subdomains, path) {
+        function generateUrlBreakdown(domain, subdomains, path, hasWww) {
             const container = document.getElementById('urlBreakdown');
-            
+
             let html = '<div class="url-breakdown-title">Here\'s what you entered:</div>';
             html += '<div class="url-parts">';
-            
+
+            // Show www first (if present) in gray
+            if (hasWww) {
+                html += `<span style="color: #999; background: #f0f0f0; padding: 4px 8px; border-radius: 4px;">www</span>`;
+                html += '<span class="separator">.</span>';
+            }
+
             // Show subdomains first (if any)
             if (subdomains.length > 0) {
                 for (let i = 0; i < subdomains.length; i++) {
@@ -582,15 +623,15 @@
                     html += '<span class="separator">.</span>';
                 }
             }
-            
+
             // Show domain
             html += `<span class="domain-part">${domain}</span>`;
-            
+
             // Show path (if any)
             if (path) {
                 html += `<span class="path-part">${path}</span>`;
             }
-            
+
             html += '</div>';
             container.innerHTML = html;
         }
@@ -602,5 +643,3 @@
             }
         });
     </script>
-</body>
-</html>

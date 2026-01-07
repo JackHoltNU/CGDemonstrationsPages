@@ -35,10 +35,8 @@ Put your demo in the new folder, either as a single html file or separated into 
 
 #### Key Points
 
-- Include a back navigation link: `<a href="../../demonstrations.html">Back to Demonstations</a>`
 - Keep the demo self-contained within its directory
 - Use relative paths for assets
-- Match the existing color scheme for consistency (optional)
 
 ### Step 3: Add Demo Card to Demonstrations Page
 
